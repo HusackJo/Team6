@@ -21,18 +21,20 @@ namespace MiniGameCollection.Games2024.Team06
         public GameObject firePos;
         [SerializeField]
         public float timeBetweenFires;
-
+        public bool hasGameStarted = false;
 
         //Private properites
+        private GameManager gameManager;
         private Vector3 playerInput;
         private Rigidbody rB;
-        private int ID => playerID - 1;
-        private bool isFiring;
+        private int arcadeInputID => playerID - 1;
+        private bool isFiring, secondInput;
         private float timeSinceLastFire;
 
         private void Awake()
         {
             rB = GetComponentInChildren<Rigidbody>();
+            gameManager = GameObject.FindGameObjectWithTag("Game Manager").GetComponent<GameManager>();
         }
 
         void Update()
@@ -50,14 +52,27 @@ namespace MiniGameCollection.Games2024.Team06
             {
                 Shoot();
             }
+            if (secondInput)
+            {
+                /* Testing if mGM works. Until then this button does nothing :3
+                if (playerID == 1)
+                {
+                    gameManager.mGM.Winner = MiniGameWinner.Player1;
+                }
+                if (playerID == 2)
+                {
+                    gameManager.mGM.Winner = MiniGameWinner.Player2;
+                }
+                */
+            }
         }
 
         //Gathers inputs to class properties.
         private void CheckPlayerInput()
         {
             // 2 axis inputs
-            playerInput.x = ArcadeInput.Players[ID].AxisX;
-            playerInput.z = ArcadeInput.Players[ID].AxisY;
+            playerInput.x = ArcadeInput.Players[arcadeInputID].AxisX;
+            playerInput.z = ArcadeInput.Players[arcadeInputID].AxisY;
             //Rotation
             if (playerInput != Vector3.zero)
             {
@@ -66,7 +81,8 @@ namespace MiniGameCollection.Games2024.Team06
             playerInput.Normalize();
 
             //Firing Input
-            isFiring = ArcadeInput.Players[ID].Action1.Down;
+            isFiring = ArcadeInput.Players[arcadeInputID].Action1.Down;
+            secondInput = ArcadeInput.Players[arcadeInputID].Action2.Down;
         }
 
         //Runs every FixedUpdate. Input is gathered in CheckPlayerInput
@@ -74,7 +90,7 @@ namespace MiniGameCollection.Games2024.Team06
         {
             if (timeSinceLastFire <= 0)
             {
-                if (isFiring)
+                if (isFiring && hasGameStarted)
                 {
                     timeSinceLastFire = timeBetweenFires;
                     return true;
@@ -87,6 +103,7 @@ namespace MiniGameCollection.Games2024.Team06
             return false;
         }
 
+        //Shoots fireball, Assigns currect player value to fireball
         public void Shoot()
         {
             GameObject newFireBall = Instantiate(fireBallPrefab, firePos.transform.position, firePos.transform.rotation);

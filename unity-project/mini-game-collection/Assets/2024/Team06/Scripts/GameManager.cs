@@ -5,11 +5,14 @@ using UnityEngine;
 
 namespace MiniGameCollection.Games2024.Team06
 {
-    public class GameManager : MonoBehaviour
+    public class GameManager : MiniGameBehaviour
     {
         [Header("Managers")]
         public static GameManager instance;
         public MiniGameManager mGM;
+
+        [Header("UI Properties")]
+        public GameObject countDownPanel;
 
         [Header("Game Properties")]
 
@@ -29,6 +32,14 @@ namespace MiniGameCollection.Games2024.Team06
         private void Start()
         {
             mGM.StartGame();
+        }
+        protected override void OnGameStart()
+        {
+            foreach (var player in PlayerRefs)
+            {
+                player.hasGameStarted = true;
+            }
+            countDownPanel.SetActive(false);
         }
     }
 }
