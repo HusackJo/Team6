@@ -15,9 +15,12 @@ namespace MiniGameCollection.Games2024.Team06
         private Vector3 BulletDirection;
         private Vector3 BulletVelocity;
 
+        private GameManager Manager;
+
         private void Awake()
         {
             rB = GetComponent<Rigidbody>();
+            Manager = GameManager.instance;
             BulletDirection = transform.right;
             BulletVelocity = BulletDirection * shotSpeed;
             
@@ -53,11 +56,24 @@ namespace MiniGameCollection.Games2024.Team06
             {
                 if (collision.gameObject.GetComponent<PlayerMovement>().playerID != assignedPlayer)
                 {
+                    if(assignedPlayer == 1)
+                    {
+                        Manager.mGM.Winner = MiniGameWinner.Player1;
+                    }
+                    else if (assignedPlayer == 2)
+                    {
+                        Manager.mGM.Winner = MiniGameWinner.Player2;
+                    }
+
+                    Destroy(collision.gameObject);
                     Destroy(gameObject);
+
+                    Manager.mGM.StopGame();
                 }
             }
             else
             {
+                //Occurs when bullets hit each other (or anything else not accounted for)
                 Destroy(gameObject);
             }
             
