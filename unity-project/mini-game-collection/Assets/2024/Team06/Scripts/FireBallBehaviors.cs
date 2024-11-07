@@ -12,26 +12,44 @@ namespace MiniGameCollection.Games2024.Team06
         private Rigidbody rB;
         public int assignedPlayer;
 
+        private Vector3 BulletDirection;
+        private Vector3 BulletVelocity;
+
         private void Awake()
         {
             rB = GetComponent<Rigidbody>();
-            rB.AddForce(transform.right * shotSpeed * 2.5f);
+            BulletDirection = transform.right;
+            BulletVelocity = BulletDirection * shotSpeed;
+            
         }
         private void Update()
         {
-            //resets shot speed if below/equal to target velocity
-            if (rB.velocity.magnitude <= shotSpeed)
+            Move();
+        }
+
+        /// <summary>
+        /// Move the bullet based on its current direction and max speed.
+        /// </summary>
+        private void Move()
+        {
+            //Only change velocity if it has changed (hit a wall)
+            if(rB.velocity != BulletDirection * shotSpeed)
             {
-                rB.velocity = transform.right * shotSpeed;
+                rB.velocity = BulletDirection * shotSpeed;
             }
         }
         
         private void OnCollisionEnter(Collision collision)
         {
-            //we can do Bouncing here!
-
+            //Reflect the object using the normal of the wall collision
+            if(collision.gameObject.CompareTag("Wall"))
+            {
+                Vector3 newDirection = Vector3.Reflect(BulletDirection, collision.GetContact(0).normal);
+                BulletDirection = newDirection;
+                
+            }
             //this logic destroys the fireball if it collides with anything other than the player who fired it. This is to avoid collision Jank when firing.
-            if (collision.transform.CompareTag("Player"))
+            else if (collision.gameObject.CompareTag("Player"))
             {
                 if (collision.gameObject.GetComponent<PlayerMovement>().playerID != assignedPlayer)
                 {
