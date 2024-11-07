@@ -719,7 +719,7 @@ GameObject:
   - component: {fileID: 268246377}
   m_Layer: 0
   m_Name: Top Wall
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -855,7 +855,7 @@ GameObject:
   - component: {fileID: 492874091}
   m_Layer: 0
   m_Name: L Wall
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1411,7 +1411,7 @@ GameObject:
   - component: {fileID: 1256175804}
   m_Layer: 0
   m_Name: R Wall
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2504,7 +2504,7 @@ GameObject:
   - component: {fileID: 1528754195}
   m_Layer: 0
   m_Name: Bot Wall
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
