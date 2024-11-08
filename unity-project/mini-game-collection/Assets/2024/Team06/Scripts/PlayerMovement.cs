@@ -21,6 +21,7 @@ namespace MiniGameCollection.Games2024.Team06
         public GameObject firePos;
         [SerializeField]
         public float timeBetweenFires;
+        public float timeSinceLastFire;
         public bool hasGameStarted = false;
 
         //Private properites
@@ -29,7 +30,6 @@ namespace MiniGameCollection.Games2024.Team06
         private Rigidbody rB;
         private int arcadeInputID => playerID - 1;
         private bool isFiring, secondInput;
-        private float timeSinceLastFire;
 
         private void Awake()
         {
@@ -88,17 +88,17 @@ namespace MiniGameCollection.Games2024.Team06
         //Runs every FixedUpdate. Input is gathered in CheckPlayerInput
         private bool FiringLogic()
         {
-            if (timeSinceLastFire <= 0)
+            if (timeSinceLastFire >= timeBetweenFires)
             {
                 if (isFiring && hasGameStarted)
                 {
-                    timeSinceLastFire = timeBetweenFires;
+                    timeSinceLastFire = 0;
                     return true;
                 }
             }
             else
             {
-                timeSinceLastFire -= Time.deltaTime;
+                timeSinceLastFire += Time.deltaTime;
             }
             return false;
         }

@@ -16,6 +16,7 @@ namespace MiniGameCollection.Games2024.Team06
         private Vector3 BulletVelocity;
 
         private GameManager Manager;
+        private int bounces = 5;
 
         private void Awake()
         {
@@ -49,7 +50,11 @@ namespace MiniGameCollection.Games2024.Team06
             {
                 Vector3 newDirection = Vector3.Reflect(BulletDirection, collision.GetContact(0).normal);
                 BulletDirection = newDirection;
-                
+                bounces--;
+                if (bounces == 0)
+                {
+                    Destroy(gameObject);
+                }
             }
             //this logic destroys the fireball if it collides with anything other than the player who fired it. This is to avoid collision Jank when firing.
             else if (collision.gameObject.CompareTag("Player"))
