@@ -2,6 +2,7 @@ using MiniGameCollection;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace MiniGameCollection.Games2024.Team06
 {
@@ -20,8 +21,13 @@ namespace MiniGameCollection.Games2024.Team06
         [Header("Players")]
         public PlayerMovement Player1Ref;
         public PlayerMovement Player2Ref;
+        [Header("Players")]
+        public Slider Player1SliderRef;
+        public Slider Player2SliderRef;
+        
         [HideInInspector]
-        public PlayerMovement[] PlayerRefs => new PlayerMovement[] {Player1Ref, Player2Ref};
+        public PlayerMovement[] PlayerRefs => new PlayerMovement[] { Player1Ref, Player2Ref };
+        public Slider[] PlayerSliderRefs => new Slider[] { Player1SliderRef, Player2SliderRef };
 
         private void Awake()
         {
@@ -40,6 +46,13 @@ namespace MiniGameCollection.Games2024.Team06
                 player.hasGameStarted = true;
             }
             countDownPanel.SetActive(false);
+        }
+        private void Update()
+        {
+            foreach (var player in PlayerRefs)
+            {
+                PlayerSliderRefs[player.playerID-1].value = player.timeSinceLastFire / player.timeBetweenFires;
+            }
         }
     }
 }
