@@ -56,6 +56,15 @@ namespace MiniGameCollection.Games2024.Team06
                     Destroy(gameObject);
                 }
             }
+            else if (collision.gameObject.CompareTag("Obstacle"))
+            {
+                Vector3 newDirection = Vector3.Reflect(BulletDirection, collision.GetContact(0).normal);
+                BulletDirection = newDirection;
+                
+                Destroy(gameObject);
+                
+                Destroy(collision.gameObject);
+            }
             //this logic destroys the fireball if it collides with anything other than the player who fired it. This is to avoid collision Jank when firing.
             else if (collision.gameObject.CompareTag("Player"))
             {
