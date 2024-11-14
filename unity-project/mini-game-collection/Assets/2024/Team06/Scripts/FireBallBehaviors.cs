@@ -45,9 +45,9 @@ namespace MiniGameCollection.Games2024.Team06
         
         private void OnCollisionEnter(Collision collision)
         {
-            Debug.Log($"Collided with: {collision.gameObject.tag}");
+            //Debug.Log($"Collided with: {collision.gameObject.tag}");
             //Reflect the object using the normal of the wall collision
-            if(collision.gameObject.CompareTag("Wall"))
+            if(collision.gameObject.TryGetComponent<TAG_Wall>(out TAG_Wall _w))
             {
                 Vector3 newDirection = Vector3.Reflect(BulletDirection, collision.GetContact(0).normal);
                 BulletDirection = newDirection;
@@ -57,7 +57,7 @@ namespace MiniGameCollection.Games2024.Team06
                     Destroy(gameObject);
                 }
             }
-            else if (collision.gameObject.CompareTag("Obstacle"))
+            else if (collision.gameObject.TryGetComponent<TAG_Obstacle>(out TAG_Obstacle _o))
             {
                 Vector3 newDirection = Vector3.Reflect(BulletDirection, collision.GetContact(0).normal);
                 BulletDirection = newDirection;
@@ -67,7 +67,7 @@ namespace MiniGameCollection.Games2024.Team06
                 Destroy(collision.gameObject);
             }
             //this logic destroys the fireball if it collides with anything other than the player who fired it. This is to avoid collision Jank when firing.
-            else if (collision.gameObject.CompareTag("Player"))
+            else if (collision.gameObject.TryGetComponent<TAG_Player>(out TAG_Player _p))
             {
                 if (collision.gameObject.GetComponent<PlayerMovement>().playerID != assignedPlayer)
                 {
