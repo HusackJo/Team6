@@ -2,17 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TAG_Obstacle : MonoBehaviour
+namespace MiniGameCollection.Games2024.Team06
 {
-    // Start is called before the first frame update
-    void Start()
+    public class TAG_Obstacle : MonoBehaviour
     {
-        
-    }
+        // Start is called before the first frame update
+        void Start()
+        {
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+
+        }
     }
 }
