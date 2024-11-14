@@ -45,6 +45,7 @@ namespace MiniGameCollection.Games2024.Team06
         
         private void OnCollisionEnter(Collision collision)
         {
+            Debug.Log($"Collided with: {collision.gameObject.tag}");
             //Reflect the object using the normal of the wall collision
             if(collision.gameObject.CompareTag("Wall"))
             {
