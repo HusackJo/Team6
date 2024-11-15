@@ -10,7 +10,7 @@ namespace MiniGameCollection.Games2024.Team06
     {
         public void GoToPlayScene()
         {
-            SceneManager.LoadScene("");
+            SceneManager.LoadScene("2024-Team06-Main Scene");
         }
     }
 }
