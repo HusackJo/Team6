@@ -2314,7 +2314,9 @@ MonoBehaviour:
   <MaxGameTime>k__BackingField: -278729886
   <Winner>k__BackingField: 0
   <AuthorCredits>k__BackingField:
-  - Firstname Lastname
+  - Jo Husack
+  - Chris Short
+  - Ximena Nuvan
 --- !u!4 &1448271418
 Transform:
   m_ObjectHideFlags: 0
